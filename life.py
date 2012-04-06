@@ -4,7 +4,7 @@ import os
 import sys
 import time
 
-gen1 = {(21,22):True, (21,23):True, (22,21):True, (22,22):True, (23,22):True}
+gen1 = {(31,32):True, (31,33):True, (32,31):True, (32,32):True, (33,32):True}
 
 board_size = 60
 
@@ -53,7 +53,7 @@ def main(stdscr):
                 stdscr.addch(cell_coords[0], cell_coords[1], 'X')
         stdscr.refresh()
 
-        time.sleep(0.01)
+        time.sleep(0.1)
         stdscr.erase()
         current_gen = iterate(current_gen, board_size)
 
