@@ -60,9 +60,8 @@ def main(stdscr):
 
     while True:
         # draw living cells
-        # TODO this can by way more efficient.
-        for cell_coords in itertools.product(range(board_size), repeat=2):
-            if current_gen.get(cell_coords):
+        for cell_coords in current_gen:
+            if current_gen.get(cell_coords): # this check isn't necesarily necessary =P
                 stdscr.addch(cell_coords[0], cell_coords[1], 'X')
         stdscr.refresh()
 
