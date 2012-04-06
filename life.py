@@ -35,8 +35,6 @@ def iterate(board, board_size):
         if board.get(cell):
             if 2 <= neighbour_count <= 3:
                 new_board[cell] = True
-            else:
-                new_board[cell] = False
         elif neighbour_count is 3:
             new_board[cell] = True
 
