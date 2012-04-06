@@ -1,11 +1,12 @@
+import curses
 import itertools
 import os
 import sys
 import time
 
-board_size = 60
-
 gen1 = {(21,22):True, (21,23):True, (22,21):True, (22,22):True, (23,22):True}
+
+board_size = 60
 
 def iterate(board):
     new_board = {}
@@ -43,21 +44,21 @@ def iterate(board):
 
     return new_board
 
-current_gen = gen1
-clear_console = 'clear' if os.name == 'posix' else 'CLS'
 
-while True:
-    out = ''
-    for (i, cell) in enumerate(itertools.product(range(board_size), repeat=2)):
-        if current_gen.get(cell):
-            out += 'X'
-        else:
-            out += ' '
-        if (i+1)%board_size==0:
-            out += '\n'
+def main(stdscr):
+    current_gen = gen1
+    curses.curs_set(0)
 
-    os.system(clear_console)
-    sys.stdout.write(out)
-    sys.stdout.flush()
-    time.sleep(0.1)
-    current_gen = iterate(current_gen)
+    while True:
+        for (i, cell_coords) in enumerate(itertools.product(range(board_size), repeat=2)):
+            if current_gen.get(cell_coords):
+                stdscr.addch(cell_coords[0], cell_coords[1], 'X')
+        stdscr.refresh()
+
+        time.sleep(0.1)
+        stdscr.erase()
+        current_gen = iterate(current_gen)
+
+if __name__=='__main__':
+    curses.wrapper(main)
+
