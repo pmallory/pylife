@@ -4,47 +4,46 @@ import os
 import sys
 import time
 
-# initial board configuration. The board is a dictionary mapping
-# cell coords=>cell state. Dead cells can have a value of False, or they can
-# can be left out entirely
-gen1 = {(31,32):True, (31,33):True, (32,31):True, (32,32):True, (33,32):True}
+# initial board configuration. A board's state is represented by the set
+# of coordinates of living cells.
+gen1 = set([(31, 32), (31, 33), (32, 31), (32, 32), (33, 32)])
 
 def iterate(board, board_size):
     """Given a board state generate the next generation and return it.
 
-    board: a dictionary representing a genration's state
+    board: a set representing a genration's state
     board_size: how wide the (square) board is. Cells beyond this are
                 effectively dead.
 
     """
-    new_board = {}
+    new_board = set()
 
     for cell in itertools.product(range(board_size), repeat=2):
         # count cell's neigbors
         neighbour_count = 0
-        if board.get((cell[0]-1, cell[1]-1)):
+        if (cell[0]-1, cell[1]-1) in board:
             neighbour_count += 1
-        if board.get((cell[0]-1, cell[1])):
+        if (cell[0]-1, cell[1]) in board:
             neighbour_count += 1
-        if board.get((cell[0]-1, cell[1]+1)):
+        if (cell[0]-1, cell[1]+1) in board:
             neighbour_count += 1
-        if board.get((cell[0], cell[1]-1)):
+        if (cell[0], cell[1]-1) in board:
             neighbour_count += 1
-        if board.get((cell[0], cell[1]+1)):
+        if (cell[0], cell[1]+1) in board:
             neighbour_count += 1
-        if board.get((cell[0]+1, cell[1]-1)):
+        if (cell[0]+1, cell[1]-1) in board:
             neighbour_count += 1
-        if board.get((cell[0]+1, cell[1])):
+        if (cell[0]+1, cell[1]) in board:
             neighbour_count += 1
-        if board.get((cell[0]+1, cell[1]+1)):
+        if (cell[0]+1, cell[1]+1) in board:
             neighbour_count += 1
 
         # determine which cells will be alive on the next generation
-        if board.get(cell):
+        if cell in board:
             if 2 <= neighbour_count <= 3:
-                new_board[cell] = True
+                new_board.add(cell)
         elif neighbour_count is 3:
-            new_board[cell] = True
+            new_board.add(cell)
 
     return new_board
 
@@ -61,8 +60,7 @@ def main(stdscr):
     while True:
         # draw living cells
         for cell_coords in current_gen:
-            if current_gen.get(cell_coords): # this check isn't necesarily necessary =P
-                stdscr.addch(cell_coords[0], cell_coords[1], 'X')
+            stdscr.addch(cell_coords[0], cell_coords[1], 'X')
         stdscr.refresh()
 
         time.sleep(0.1)
