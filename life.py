@@ -60,7 +60,7 @@ def main(stdscr):
     while True:
         # draw living cells
         for cell_coords in current_gen:
-            stdscr.addch(cell_coords[0], cell_coords[1], 'X')
+            stdscr.addch(cell_coords[0], cell_coords[1], 'O')
         stdscr.refresh()
 
         time.sleep(0.1)
