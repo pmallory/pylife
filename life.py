@@ -1,7 +1,5 @@
 import curses
 import itertools
-import os
-import sys
 import time
 
 # initial board configuration. A board's state is represented by the set
