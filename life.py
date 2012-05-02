@@ -49,6 +49,9 @@ def iterate(board, board_size):
 def main(stdscr):
     current_gen = gen1
 
+    # make getch() non-blocking
+    stdscr.nodelay(1)
+
     # hide the cursor
     curses.curs_set(0)
 
@@ -60,6 +63,10 @@ def main(stdscr):
         for cell_coords in current_gen:
             stdscr.addch(cell_coords[0], cell_coords[1], 'O')
         stdscr.refresh()
+
+        # exit if user presses q
+        if stdscr.getch() == ord('q'):
+            break
 
         time.sleep(0.1)
         stdscr.erase()
