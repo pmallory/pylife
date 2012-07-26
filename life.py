@@ -16,7 +16,7 @@ def iterate(board, board_size):
     """
     new_board = set()
 
-    for cell in itertools.product(range(board_size), repeat=2):
+    for cell in rectangular_coordinates(board_size): 
         # count cell's neigbors
         neighbour_count = 0
         if (cell[0]-1, cell[1]-1) in board:
@@ -46,6 +46,12 @@ def iterate(board, board_size):
     return new_board
 
 
+def rectangular_coordinates(dimension):
+    for i in range(dimension[0]):
+        for j in range(dimension[1]):
+            yield (i, j)
+
+
 def main(stdscr):
     current_gen = gen1
 
@@ -56,7 +62,7 @@ def main(stdscr):
     curses.curs_set(0)
 
     # set the board size such that it fits within the terminal window
-    board_size = min(stdscr.getmaxyx())
+    board_size = stdscr.getmaxyx()
 
     while True:
         # draw living cells
