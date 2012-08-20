@@ -16,7 +16,7 @@ def iterate(board, board_size):
     """
     new_board = set()
 
-    for cell in rectangular_coordinates(board_size): 
+    for cell in rectangular_coordinates(board_size):
         # count cell's neigbors
         neighbour_count = 0
         if (cell[0]-1, cell[1]-1) in board:
