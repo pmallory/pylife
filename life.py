@@ -6,7 +6,7 @@ import time
 #A board's state is represented by the set  of coordinates of living cells.
 gen1 = set([(11, 32), (11, 33), (12, 31), (12, 32), (13, 32)])
 
-# cycling iterator of a cells eight neigbors
+# cycling iterator of a cell's eight neigbors
 neighbors = cycle(ifilter(lambda x: x!=(0,0), product(xrange(-1,2), repeat=2)))
 
 def iterate(board, board_size):
