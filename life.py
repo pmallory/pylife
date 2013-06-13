@@ -1,10 +1,7 @@
 import curses
 from itertools import product, ifilter, islice, cycle
+import random
 import time
-
-# initial board configuration.
-#A board's state is represented by the set  of coordinates of living cells.
-gen1 = set([(11, 32), (11, 33), (12, 31), (12, 32), (13, 32)])
 
 # cycling iterator of a cell's eight neigbors
 neighbors = cycle(ifilter(lambda x: x!=(0,0), product(xrange(-1,2), repeat=2)))
@@ -35,7 +32,14 @@ def iterate(board, board_size):
     return new_board
 
 def main(stdscr):
-    current_gen = gen1
+    # a generation is a set of living cells
+    current_gen = set()
+
+    # randomize the first generation
+    board_size = stdscr.getmaxyx()
+    for cell in product(xrange(board_size[0]), xrange(board_size[1])):
+        if random.choice([False, False, False, False, True]):
+            current_gen.add(cell)
 
     # make getch() non-blocking
     stdscr.nodelay(1)
