@@ -38,7 +38,8 @@ def main(stdscr):
     # randomize the first generation
     board_size = stdscr.getmaxyx()
     for cell in product(xrange(board_size[0]), xrange(board_size[1])):
-        if random.choice([False, False, False, False, True]):
+        # 1/5 chance of cell being alive
+        if random.choice([True] + 4*[False]):
             current_gen.add(cell)
 
     # make getch() non-blocking
