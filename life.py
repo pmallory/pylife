@@ -1,10 +1,10 @@
 import curses
-from itertools import product, ifilter, islice, cycle
+from itertools import product, islice, cycle
 import random
 import time
 
 # cycling iterator of a cell's eight neigbors
-neighbors = cycle(ifilter(lambda x: x!=(0,0), product(xrange(-1,2), repeat=2)))
+neighbors = cycle(filter(lambda x: x!=(0,0), product(range(-1,2), repeat=2)))
 
 def iterate(board, board_size):
     """Given a board state generate the next generation and return it.
@@ -15,7 +15,7 @@ def iterate(board, board_size):
     """
     new_board = set()
 
-    for cell in product(xrange(board_size[0]), xrange(board_size[1])):
+    for cell in product(range(board_size[0]), range(board_size[1])):
         # count cell's living neighbors
         neighbor_count = 0
         for neighbor in islice(neighbors, 8):
@@ -37,7 +37,7 @@ def main(stdscr):
 
     # randomize the first generation
     board_size = stdscr.getmaxyx()
-    for cell in product(xrange(board_size[0]), xrange(board_size[1])):
+    for cell in product(range(board_size[0]), range(board_size[1])):
         # 1/5 chance of cell being alive
         if random.choice([True] + 4*[False]):
             current_gen.add(cell)
