@@ -60,7 +60,10 @@ def main(stdscr):
 
         # draw the new generation of cells
         for cell_coords in current_gen:
-            stdscr.addch(cell_coords[0], cell_coords[1], 'O')
+            try:
+                stdscr.addch(cell_coords[0], cell_coords[1], 'O')
+            except curses.error: # https://stackoverflow.com/questions/37648557/curses-error-add-wch-returned-an-error
+                pass
         stdscr.refresh()
 
         # exit if user presses q
@@ -72,4 +75,3 @@ def main(stdscr):
 
 if __name__=='__main__':
     curses.wrapper(main)
-
