@@ -48,6 +48,9 @@ def main(stdscr):
     # hide the cursor
     curses.curs_set(0)
 
+    # Use the terminal application's default colors
+    curses.use_default_colors()
+
     while True:
         # set the board size such that it fits within the terminal window
         board_size = stdscr.getmaxyx()
